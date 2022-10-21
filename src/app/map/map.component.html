@@ -3,11 +3,13 @@
     <input type="file" (change)="onImport($event)"/>
     <div id="floating-panel">
 
-        <input id="delete-markers" type="button" value="Submit Drone Coordinates" />
-        <input id="pause" type="button" value="Pause" />
-        <input id="play" type="button" value="Play" />
+        <button class="btn" mat-raised-button color="warn" id="simulate" type="button" [hidden]="hide">Start Simulation</button>
+        <button class="btn" mat-stroked-button color="warn" id="pause" type="button">Pause</button>
+        <button class="btn" mat-stroked-button color="accent" id="play" type="button">Play</button>
+
+        <button class="btn" mat-raised-button color="accent" id="clear" type="button">Clear</button>
     </div>
-    <div #map id="map-canvas">
+    <div #maps id="map-canvas">
         
     </div>
 </div>

@@ -1,27 +1,42 @@
-# Maptrack
+# Maptrack Application
 
+This is a Drone Simulator Project for Flytbase internship.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
 
-## Development server
+## 3-Input Choices 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Enter by user input
+2. Enter by file upload
+3. Enter by clicking on map for markers
+You can additionally give inputs from all three of the above choices and input will be taken accordingly.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+### Add Button
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+This for Input 1 to add each pair of marker coordinates which will be stored in an MVCArray.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Choose File Button
 
-## Running end-to-end tests
+This is for Input 2 to upload a file of JSON format ( {timestamp: value, latlng: {lat: x, lng: y} } ).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+### Start Simulation
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This plots the drone path and starts the drone simulation on the path.
+
+
+### Pause
+
+This pauses the drone traversal on the Path.
+
+
+### Play
+
+This continues the drone traversal on the Path.
+
+
+### Clear
+
+This button has to be pressed to clear the previous drone path to start adding a new Input.

@@ -1,0 +1,24 @@
+
+
+example-form {
+  min-width: 50px;
+  max-width: 100px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 50%;
+}
+
+mat-form-field.mat-form-field {
+    font-size: 10px;
+  }
+td {
+  padding-right: 8px;
+}
+
+.btn {
+    display: table-cell;
+    margin-bottom: 25%;
+    margin-left: 25%;
+  }

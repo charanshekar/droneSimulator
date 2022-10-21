@@ -33,10 +33,6 @@ export class InputTSeriesComponent implements OnInit {
   }
 
   addEvent(): void {
-
-    //this.inputObject.latlng.lat = parseInt(this.inputObject.latlng.lat);
-    //this.inputObject.latlng.lng = parseInt(this.inputObject.latlng.long);
-
     this.inputEvent.emit(this.inputObject);
 
     this.inputObject.timestamp='';

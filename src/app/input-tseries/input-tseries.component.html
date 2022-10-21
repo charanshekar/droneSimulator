@@ -1,9 +1,41 @@
 
-<div id="floating-panel">
-    <input [(ngModel)]="inputObject.timestamp" type="datetime" name="timestamp" placeholder="Timestamp" class="" />
-    <input [(ngModel)]="inputObject.latlng.lat" type="number" name="latitude" placeholder="Latitude" class="" />
-    <input [(ngModel)]="inputObject.latlng.lng" type="number" name="longitude" placeholder="Longitude" class="" />
 
-    <button (click)="addEvent()">Add</button>
+
+<div id="floating-panel">
+    <div class="inputContainer">
+        <table class="header">
+            <tr>
+                <td>
+                    <img src="../../assets/imgs/flytbase.png" width="50px" />
+                </td>
+                <td>
+                    <h2>Drone Simulator</h2>
+                </td>
+                <td>
+                    <h4>&nbsp; &nbsp;(<b>3-input choices for coordinates</b> : 1. Enter by user input   |   2. Enter by file upload   |   3. Enter by clicking on map)</h4>
+                </td>
+            </tr>
+        </table>
+        <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Timestamp</mat-label>
+                    <input matInput [(ngModel)]="inputObject.timestamp" type="datetime" name="timestamp" placeholder="" class="" />
+                </mat-form-field>
+            </td>
+            <td><mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Latitude</mat-label>
+                <input matInput [(ngModel)]="inputObject.latlng.lat" type="number" name="latitude" placeholder="" class="" />
+                </mat-form-field>
+            </td>
+            <td><mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Longitude</mat-label>
+                <input matInput [(ngModel)]="inputObject.latlng.lng" type="number" name="longitude" placeholder="" class="" />
+                </mat-form-field>
+            </td>
+            <td>
+                <button class="btn" mat-raised-button color="accent" (click)="addEvent()">Add</button>
+            </td>
+            </tr></table>
+    </div>
 
 </div>

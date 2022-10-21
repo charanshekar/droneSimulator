@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {} from 'googlemaps';
 
 @Component({
@@ -11,12 +11,6 @@ import {} from 'googlemaps';
 })
 
 export class MapComponent implements OnInit {
-
-  //@Input() input: InputInterface;
-
-  timestamp: string;
-  latit: string;
-  long: string;
 
   map: google.maps.Map;
   center: google.maps.LatLngLiteral;
@@ -30,53 +24,38 @@ export class MapComponent implements OnInit {
   newMarkers: google.maps.Marker[] = [];
 
   source: google.maps.LatLngLiteral;
-  destination: google.maps.LatLngLiteral;
-  myObservable:any =  new Subject();
+  myObservable =  new Subject();
 
   options: google.maps.MapOptions = {
-
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     scrollwheel: true,
     disableDefaultUI: true,
     disableDoubleClickZoom: true,
-    zoom: 8
+    zoom: 10
   }
+
+  hide:boolean = false;
 
   constructor() { }
 
-  ds: google.maps.DirectionsService;
-  dr: google.maps.DirectionsRenderer;
-
   ngOnInit(): void {
 
-    this.ds = new google.maps.DirectionsService();
-    this.dr = new google.maps.DirectionsRenderer({
-      map: null,
-      suppressMarkers: true
-    })
-
-    this.myObservable.subscribe((val) => {
+    this.myObservable.subscribe((val:any) => {
         this.addLatLng(val);
         if(this.newMarkers.length>1) {
-          console.log(this.newMarkers);
           this.newMarkers[this.newMarkers.length-2].setMap(null);
         }
-        if(this.newMarkers.length==this.markers.length) {
+        if(this.newMarkers.length===this.markers.length) {
           if(this.interval) clearInterval(this.interval);
-          this.myObservable.unsubscribe();
         }
     });
 
   navigator.geolocation.getCurrentPosition(position => {
 
+    // By default center set to Pune source
       this.source = {
         lat: 18.560348,
         lng: 73.820979
-      }
-
-      this.destination = {
-        lat: 37.342226,
-        lng: -122.0256165
       }
 
       this.map = new google.maps.Map(document.getElementById('map-canvas')!, {
@@ -94,7 +73,16 @@ export class MapComponent implements OnInit {
 
       this.map.addListener("click", (event: google.maps.MapMouseEvent) => {
         this.addMarker(event.latLng!);
-        console.log(event.latLng);
+      });
+
+
+      document.getElementById('clear')
+      .addEventListener("click", () => {
+        this.poly.getPath().clear();
+        this.markers=[];
+        this.newMarkers[this.newMarkers.length-1].setMap(null);
+        this.newMarkers=[];
+        this.i = 0;
       });
 
       document.getElementById('pause')
@@ -103,13 +91,14 @@ export class MapComponent implements OnInit {
       document.getElementById('play')
       .addEventListener("click", () => this.pausePlay('PLAY'));
 
-      document.getElementById("delete-markers")!
+      document.getElementById("simulate")!
       .addEventListener("click", () => {
         for (let i = 0; i < this.markers.length; i++) {
           this.markers[i].setMap(null);
           const path = this.poly.getPath();
           path.push(this.markers[i].getPosition() as google.maps.LatLng);
         }
+        this.pausePlay('PLAY');
       });
 
     });
@@ -124,21 +113,21 @@ export class MapComponent implements OnInit {
 
   onImport(event:any) {
     var file = event.srcElement.files[0];
+    var fileObserver:any = new Subject();
+    fileObserver.subscribe((val:any) => { 
+      this.addHandler(val);
+    });
     if (file) {
         var reader = new FileReader();
         var data:any;
         reader.readAsText(file, "UTF-8");
-        reader.onload = function (evt) {
+        reader.onload = function (evt): any {
           data = JSON.parse(evt.target.result as string);
-          console.log(data);
           data.forEach(function(e:any) {
             const dateA: any = new Date(e.timestamp);
             e.timestamp=dateA;
-            console.log(e.latlng);
-            this.map.setCenter(e.latlng);
-            this.addMarker(e.latlng);
+            fileObserver.next(e);
           });
-
         }
         reader.onerror = function (evt) {
             console.log('error reading file');
@@ -147,22 +136,18 @@ export class MapComponent implements OnInit {
   }
 
   addHandler(event: any): void {
-    console.log(event);
     this.map.setCenter(event.latlng);
     this.addMarker(event.latlng);
   }
 
   // Adds a marker to the map and push to the array.
   addMarker(position: google.maps.LatLng | google.maps.LatLngLiteral | any) {
-
     var marker = new google.maps.Marker({
       position: position,
       map: this.map
     });
 
     this.markers.push(marker);
-    console.log(this.markers.length);
-
   }
 
   // Sets the map on all markers in the array.
@@ -171,11 +156,6 @@ export class MapComponent implements OnInit {
     for (let i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(null);
     }
-  }
-
-  // Deletes all markers in the array by removing references to them.
-  deleteMarkers(): void {
-
   }
 
   addLatLng(mrker: google.maps.Marker) {
@@ -190,8 +170,6 @@ export class MapComponent implements OnInit {
     });
     this.newMarkers.push(newMarker);
   }
-
- 
 
   pausePlay(state: string) {
     switch(state) {

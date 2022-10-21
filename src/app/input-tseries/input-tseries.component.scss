@@ -1,0 +1,37 @@
+mat-form-field { /* Changes the input styling to just about nothing so that button styling can take over */
+    font-size: 13px;
+    color: white;
+  }
+
+
+h2 {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 100;
+}
+
+h4 {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12px;
+}
+
+  .header {
+    margin-top: -20px;
+    margin-bottom: -20px;;
+  }
+  
+  .btn {
+    display: table-cell;
+    margin-bottom: 25%;
+    margin-left: 25%;
+  }
+  /* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent !important; //remove border if needed 
+  } */
+  
+  .mat-button { 
+    padding: 0 30px; /* Changes position of dropdown icons */
+  }
+  
+mat-icon {
+    width: 50px;
+}
