@@ -1,0 +1,13 @@
+<div class="app-page">
+    <app-input-tseries (inputEvent)="addHandler($event)"></app-input-tseries>
+    <input type="file" (change)="onImport($event)"/>
+    <div id="floating-panel">
+
+        <input id="delete-markers" type="button" value="Submit Drone Coordinates" />
+        <input id="pause" type="button" value="Pause" />
+        <input id="play" type="button" value="Play" />
+    </div>
+    <div #map id="map-canvas">
+        
+    </div>
+</div>

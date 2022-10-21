@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'maptrack';
+
+  addHandler(event): void {
+    console.log()
+  }
 }
