@@ -1,0 +1,31 @@
+<app-input (inputEvent)="addMarker($event.lat,$event.lng,$event.timestamp, true)"></app-input>
+<input #fileInput type="file" (change)="droneService.onImport($event)"/>
+
+<div id="floating-panel">
+
+    <button *ngIf="!hide" (click)="onSimulate()" class="btn" mat-raised-button color="warn" id="simulate" type="button" [hidden]="hide">Start Simulation</button>
+    <button (click)="onPause()" class="btn" mat-stroked-button color="warn" id="pause" type="button">Pause</button>
+    <button (click)="onPlay()" class="btn" mat-stroked-button color="accent" id="play" type="button">Play</button>
+
+    <button (click)="onClear()" class="btn" mat-raised-button color="accent" id="clear" type="button">Clear</button>
+</div>
+
+<agm-map [latitude]="droneService.lat" [longitude]="droneService.lng" (mapClick)="onClickedLocation($event)">
+    <agm-marker [visible]="!hide" *ngFor="let m of markers; let i=index"
+        [latitude]="m.lat"
+        [longitude]="m.lng" [agmFitBounds]="true" >
+    </agm-marker>
+
+        <agm-polyline [visible]="hide" [strokeWeight]="3" [strokeColor]="'#E3242B'">
+            <agm-polyline-point
+                *ngFor="let m of markers; let i=index"
+                [latitude]="m.lat"
+                [longitude]="m.lng">
+            </agm-polyline-point>
+        </agm-polyline>
+
+    <agm-marker [visible]="hide" 
+                [latitude]="droneService.drone.lat"
+                [longitude]="droneService.drone.lng" [iconUrl]="$any(droneService.iconUrl)">
+    </agm-marker>
+</agm-map>
