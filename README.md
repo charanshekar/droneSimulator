@@ -1,6 +1,6 @@
-# Flytbase Drone Simulator Assignment
+# Drone Map Simulator
 
-This is a Drone Simulator Project for Flytbase internship.
+This is a Drone Simulator Project for Internship.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
 
 ## 3-Input Choices 
